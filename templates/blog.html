@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- TODO: display all blog posts below -->
+{% if blogid %}
+    {{ body }}
+{% else %}
+    {% for post in posts %}
+        <a href="?id={{ post.id }}">{{ post.title }}</a>
+        <br/>
+        {{ post.body }}
+        <hr/>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}

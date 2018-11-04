@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!-- TODO: show an error if either field is left empty -->
+<form action="/newpost" method="post">
+
+    <label>Title:
+    <input type="text" name="title" id="title" width="50"/>
+    </label>
+    <br/>
+
+    <p>This is where your shitty opinion goes</p>
+    <textarea name="body" id="body" rows="10" cols="50" />
+    </textarea>
+    <br/>
+
+    <input type="submit" value="Go ahead and post your shitty opinion"/>
+
+</form>
+{% endblock content %}
