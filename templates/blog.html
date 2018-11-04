@@ -3,6 +3,8 @@
 {% block content %}
 <!-- TODO: display all blog posts below -->
 {% if blogid %}
+    <h2 align="center">{{ title }}</h2>
+    <hr width="200px">
     {{ body }}
 {% else %}
     {% for post in posts %}

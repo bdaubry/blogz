@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{ title }}</title>
+        <title>{{ pagetitle }}</title>
         <style type="text/css">
             .error {
                 color: red;
@@ -11,10 +11,12 @@
     <body>
         
         <a href="/blog">Main Blog Page</a>
-        <a href="/newpost">Add a Blog Entry</a>
-        <br/>
-        <h1>{{ title }}</h1>
+        <a href="/newpost">Add a Blog Entry</a><br/>
+
+        <h1><a href="/blog">Blog!</a></h1>
+
         <hr>
+        
         {% block content %}
         {% endblock %}
 

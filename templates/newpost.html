@@ -2,16 +2,16 @@
 
 {% block content %}
 <!-- TODO: show an error if either field is left empty -->
+<p class="error">{{ error_msg }}</p>
 <form action="/newpost" method="post">
 
     <label>Title:
-    <input type="text" name="title" id="title" width="50"/>
+    <input type="text" name="title" id="title" width="50" value="{{ title }}"/>
     </label>
     <br/>
 
     <p>This is where your shitty opinion goes</p>
-    <textarea name="body" id="body" rows="10" cols="50" />
-    </textarea>
+    <textarea name="body" id="body" rows="10" cols="50" />{{ body }}</textarea>
     <br/>
 
     <input type="submit" value="Go ahead and post your shitty opinion"/>

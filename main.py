@@ -25,7 +25,7 @@ def reroute():
 @app.route('/blog', methods=['GET'])
 def index():
 
-    posts = Blog.query.all()
+    posts = Blog.query.order_by('id DESC').all()
     blogid = request.args.get('id')
 
     if blogid != None:
@@ -35,7 +35,7 @@ def index():
         return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body)
 
     
-    return render_template('blog.html', posts=posts, title="Build-A-Blog")
+    return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def newpost():
@@ -43,15 +43,21 @@ def newpost():
         #pull blog information from form, save in variables
         title = request.form['title']
         body = request.form['body']
+        if title == "":
+            error = "Title can't be blank pls"
+            return render_template('newpost.html', body=body, error_msg=error)
+        if body == "":
+            error = "Body can't be blank because you have shitty opinions"
+            return render_template('newpost.html', title=title, error_msg=error)
         #create a new post using the Blog class
         newpost = Blog(title, body)
         #add the blog post to the database, which needs title and body
         db.session.add(newpost)
         db.session.commit()
-
-        return redirect('/blog')
+        lastid = Blog.query.order_by('id DESC').first()
+        return redirect('/blog?id='+str(lastid.id))
     
-    return render_template('newpost.html', title="New Post")
+    return render_template('newpost.html', pagetitle="New Post")
 
 
 if __name__ == "__main__":
