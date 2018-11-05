@@ -33,7 +33,6 @@ def index():
         print(blogpost.title)
         print(blogpost.body)
         return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body)
-
     
     return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
 
@@ -43,11 +42,13 @@ def newpost():
         #pull blog information from form, save in variables
         title = request.form['title']
         body = request.form['body']
+        if title == "" and body == "":
+            return render_template('newpost.html', pagetitle="New Post")
         if title == "":
-            error = "Title can't be blank pls"
+            error = "Title can't be blank"
             return render_template('newpost.html', body=body, error_msg=error)
         if body == "":
-            error = "Body can't be blank because you have shitty opinions"
+            error = "Body can't be blank"
             return render_template('newpost.html', title=title, error_msg=error)
         #create a new post using the Blog class
         newpost = Blog(title, body)

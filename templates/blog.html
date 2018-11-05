@@ -3,14 +3,14 @@
 {% block content %}
 <!-- TODO: display all blog posts below -->
 {% if blogid %}
-    <h2 align="center">{{ title }}</h2>
+    <h2 align="center" class="post title direct">{{ title }}</h2>
     <hr width="200px">
-    {{ body }}
+    <p class="post content direct">{{ body }}</p>
 {% else %}
     {% for post in posts %}
-        <a href="?id={{ post.id }}">{{ post.title }}</a>
+        <h3 class="post title mainpage"><a href="?id={{ post.id }}">{{ post.title }}</a></h3>
         <br/>
-        {{ post.body }}
+        <p class="post mainpage content">{{ post.body }}</p>
         <hr/>
     {% endfor %}
 {% endif %}
