@@ -11,8 +11,9 @@ db = SQLAlchemy(app)
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), unique=True) 
+    title = db.Column(db.String(120), unique=False) 
     body = db.Column(db.Text(), unique=False)
+    date = db.Column(db.DateTime(), unique=False)
 
     def __init__(self, title, body):
         self.title = title
@@ -24,7 +25,6 @@ def reroute():
 
 @app.route('/blog', methods=['GET'])
 def index():
-
     posts = Blog.query.order_by('id DESC').all()
     blogid = request.args.get('id')
 
