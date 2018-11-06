@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 import cgi
 
 app = Flask(__name__)
@@ -13,11 +14,12 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=False) 
     body = db.Column(db.Text(), unique=False)
-    date = db.Column(db.DateTime(), unique=False)
+    date = db.Column(db.DateTime, unique=False)
 
     def __init__(self, title, body):
         self.title = title
         self.body = body
+        self.date = func.now()
 
 @app.route('/')
 def reroute():
@@ -32,7 +34,7 @@ def index():
         blogpost = Blog.query.filter_by(id=blogid).first()
         print(blogpost.title)
         print(blogpost.body)
-        return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body)
+        return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body, date=blogpost.date)
     
     return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
 

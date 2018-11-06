@@ -4,14 +4,14 @@
 <!-- TODO: display all blog posts below -->
 {% if blogid %}
     <h2 align="center" class="post title direct">{{ title }}</h2>
+    <p align="center">posted on {{ date }}</p>
     <hr width="200px">
     <p class="post content direct">{{ body }}</p>
 {% elif posts|length == 0 %}
     <p>No posts yet!</p>
 {% else %}
     {% for post in posts %}
-        <a href="?id={{ post.id }}">{{ post.title }}</a>
-        <br/>
+        <a href="?id={{ post.id }}">{{ post.title }}</a>&nbsp;{{ post.date }}
         <p class="post mainpage content">{{ post.body }}</p>
         <hr/>
     {% endfor %}
