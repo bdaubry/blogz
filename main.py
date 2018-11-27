@@ -21,21 +21,29 @@ class Blog(db.Model):
         self.body = body
         self.date = func.now()
 
+
 @app.route('/')
 def reroute():
     return redirect('/blog')
 
-@app.route('/blog', methods=['GET'])
+@app.route('/blog', methods=['GET', 'POST'])
 def index():
     posts = Blog.query.order_by('id DESC').all()
     blogid = request.args.get('id')
 
     if blogid != None:
         blogpost = Blog.query.filter_by(id=blogid).first()
+        #if request.method == 'POST':
+        #    blogpost.title == new_title
+        #    blogpost.body == new_body
+
         print(blogpost.title)
         print(blogpost.body)
         return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body, date=blogpost.date)
-    
+
+        
+
+
     return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
 
 @app.route('/newpost', methods=['GET', 'POST'])
