@@ -5,14 +5,16 @@
 {% if blogid %}
     <h2 align="center" class="post title direct">{{ title }}</h2>
     <p align="center">posted on {{ date }}</p>
+    <p align="center">by {{ owner }}</p>
     <hr width="200px">
     <p class="post content direct">{{ body }}</p>
 {% elif posts|length == 0 %}
     <p>No posts yet!</p>
 {% else %}
     {% for post in posts %}
-        <a href="?id={{ post.id }}">{{ post.title }}</a>&nbsp;{{ post.date }}
+        <a href="?id={{ post.id }}">{{ post.title }}</a>&nbsp;
         <p class="post mainpage content">{{ post.body }}</p>
+        <h6>posted by <a href='?userid={{ post.owner_id }}'>{{ post.owner.username }}</a> on {{ post.date }}</h6>
         <hr/>
     {% endfor %}
 {% endif %}
