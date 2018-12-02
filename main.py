@@ -85,7 +85,7 @@ def blog():
         return render_template('singleUser.html', posts=blogs, username=user.username, pagetitle=user.username+"'s Posts")
         #return render_template('blog.html', blogid=blogs.id, title=blogs.title, body=blogs.body, date=blogs.date, owner=blogs.owner.username)
 
-    return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
+    return render_template('blog.html', posts=posts, pagetitle="blogz")
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def newpost():
@@ -94,7 +94,7 @@ def newpost():
         title = request.form['title']
         body = request.form['body']
         if title == "" and body == "":
-            return render_template('newpost.html', pagetitle="New Post")
+            return render_template('newpost.html', pagetitle="new post")
         if title == "":
             error = "Title can't be blank"
             return render_template('newpost.html', body=body, error_msg=error)
@@ -109,13 +109,13 @@ def newpost():
         lastid = Blog.query.order_by('id DESC').first()
         return redirect('/blog?id='+str(lastid.id))
     
-    return render_template('newpost.html', pagetitle="New Post")
+    return render_template('newpost.html', pagetitle="new post")
 
 
 @app.route('/')
 def index():
     users = User.query.order_by('username ASC').all()
-    return render_template('index.html', users=users)
+    return render_template('index.html', users=users, pagetitle="home")
 
 # def reroute():
 #     return redirect('/blog')
