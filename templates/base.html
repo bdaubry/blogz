@@ -7,9 +7,8 @@
     <body>
         <div style='float: right'>
           {% if 'user' in session %}
-            {{ session['user'] }}
             <form action="logout" method="post" id='logout'>
-              <input type="submit" value="Log Out" />
+              <label>logged in as {{ session['user'] }} &nbsp;<input type="submit" value="Log Out" /></label>
             </form>
           {% else %}
             <a href="login">login</a> | <a href="signup">signup</a>
@@ -23,7 +22,7 @@
         {% block title %}
         {% endblock %}
         </div>
-        
+
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             {% for message in messages %}
