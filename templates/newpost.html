@@ -5,16 +5,16 @@
 <p class="error">{{ error_msg }}</p>
 <form action="/newpost" method="post">
 
-    <label>Title:
+    <label>title:
     <input type="text" name="title" id="title" width="50" value="{{ title }}"/>
     </label>
     <br/>
 
-    <p>Body:</p>
+    <p>body:</p>
     <textarea name="body" id="body" rows="10" cols="50">{{ body }}</textarea>
     <br/>
 
-    <input type="submit" value="Create a new post"/>
+    <input type="submit" value="create a new post"/>
 
 </form>
 {% endblock content %}
