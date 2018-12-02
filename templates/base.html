@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="static/style.css">
     </head>
     <body>
-          <div style='float: right'>
+        <div style='float: right'>
           {% if 'user' in session %}
             {{ session['user'] }}
             <form action="logout" method="post" id='logout'>
@@ -15,12 +15,15 @@
             <a href="login">login</a> | <a href="signup">signup</a>
           {% endif %}
         </div>
+        <a href="/" class="nav home">home</a>
+        <a href="blog" class="nav blog">all blogs</a>
+        <a href="newpost" class="nav new-post">add a blog</a><br/>
+
+        <div name="title">
+        {% block title %}
+        {% endblock %}
+        </div>
         
-        <a href="blog" class="nav blog">Main Blog Page</a>
-        <a href="newpost" class="nav new-post">Add a Blog Entry</a><br/>
-
-        <h1><a href="blog" class="title">This might be a blog?</a></h1>
-
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             {% for message in messages %}

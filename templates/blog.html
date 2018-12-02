@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    <h1 class="title">all blogposts</h1>
+{% endblock %}
+
 {% block content %}
 <!-- TODO: display all blog posts below -->
 {% if blogid %}
@@ -9,7 +13,7 @@
     <hr width="200px">
     <p class="post content direct">{{ body }}</p>
 {% elif posts|length == 0 %}
-    <p>No posts yet!</p>
+    <p>No users have posted yet!</p>
 {% else %}
     {% for post in posts %}
         <a href="?id={{ post.id }}">{{ post.title }}</a>&nbsp;

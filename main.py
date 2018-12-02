@@ -81,7 +81,7 @@ def blog():
     if userid: #!= None:
         blogs = Blog.query.filter_by(owner_id=userid).all()
         user = User.query.filter_by(id=userid).first()
-        return render_template('blog.html', posts=blogs, pagetitle=user.username+"'s Posts")
+        return render_template('singleUser.html', posts=blogs, username=user.username, pagetitle=user.username+"'s Posts")
         #return render_template('blog.html', blogid=blogs.id, title=blogs.title, body=blogs.body, date=blogs.date, owner=blogs.owner.username)
 
     return render_template('blog.html', posts=posts, pagetitle="Build-A-Blog")
@@ -113,7 +113,7 @@ def newpost():
 
 @app.route('/')
 def index():
-    users = User.query.order_by('username DESC').all()
+    users = User.query.order_by('username ASC').all()
     return render_template('index.html', users=users)
 
 # def reroute():
