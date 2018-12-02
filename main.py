@@ -9,7 +9,7 @@ from models import User, Blog
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.html', pagetitle="login")
     elif request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -18,12 +18,13 @@ def login():
             user = users.first()
             if password == user.password:
                 session['user'] = user.username
-                flash('welcome back, '+user.username)
+                session['userid'] = user.id
+                flash(u'welcome back, '+user.username, 'confirm')
                 return redirect("/newpost")
             else:
-                flash('bad password')
+                flash(u'bad password', 'error')
         else:
-            flash('bad username')
+            flash(u'bad username', 'error')
         return redirect("/login")
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -33,20 +34,20 @@ def signup():
         password = request.form['password']
         verify = request.form['verify']
         if username == '' or password == '' or verify == '':
-            flash('no field on this page can be blank')
+            flash(u'no field on this page can be blank', 'error')
             return redirect('/signup')
         user_db_count = User.query.filter_by(username=username).count()
         if user_db_count > 0:
-            flash(username + ' is already a registered user')
+            flash(u'that username is taken', 'error')
             return redirect('/signup')
         if password != verify:
-            flash('passwords did not match')
+            flash(u'passwords did not match', 'error')
             return redirect('/signup')
         if len(password) < 4:
-            flash('password is too short')
+            flash(u'password is too short', 'error')
             return redirect('/signup')
         if len(username) < 4:
-            flash('username is too short')
+            flash(u'username is too short', 'error')
             return redirect('/signup')
         user = User(username=username, password=password)
         db.session.add(user)
@@ -54,7 +55,7 @@ def signup():
         session['user'] = user.username
         return redirect("/")
     else:
-        return render_template('signup.html')
+        return render_template('signup.html', pagetitle="sign-up")
 
 @app.route("/logout", methods=['POST'])
 def logout():
@@ -76,7 +77,7 @@ def blog():
 
         print(blogpost.title)
         print(blogpost.body)
-        return render_template('blog.html',blogid=blogpost.id, title=blogpost.title, body=blogpost.body, date=blogpost.date, owner=blogpost.owner.username)
+        return render_template('blog.html', blogid=blogpost.id, title=blogpost.title, body=blogpost.body, date=blogpost.date, owner_id=blogpost.owner_id, owner=blogpost.owner.username, pagetitle=blogpost.title+" - "+blogpost.owner.username)
 
     if userid: #!= None:
         blogs = Blog.query.filter_by(owner_id=userid).all()
@@ -128,7 +129,7 @@ endpoints_without_login = ['index', 'login', 'signup', 'reroute', 'blog', 'stati
 @app.before_request
 def require_login():
     if not ('user' in session or request.endpoint in endpoints_without_login):
-        flash('you must be logged in to complete that action')
+        flash(u'you must be logged in to complete that action', 'error')
         return redirect('/login')
 
 app.secret_key = 'WOWweEEILoFELauncerCODERItsMYfavorIETCLase'

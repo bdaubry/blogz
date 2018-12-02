@@ -2,39 +2,50 @@
 <html>
     <head>
         <title>{{ pagetitle }}</title>
+        <link rel="stylesheet" type="text/css" href="static/normalize.css">
         <link rel="stylesheet" type="text/css" href="static/style.css">
     </head>
     <body>
-        <div style='float: right'>
+        <div id="user-panel" style='float: right'>
           {% if 'user' in session %}
             <form action="logout" method="post" id='logout'>
-              <label>logged in as {{ session['user'] }} &nbsp;<input type="submit" value="Log Out" /></label>
+              <label>logged in as <a href="blog?userid={{ session['userid'] }}">{{ session['user'] }} &nbsp;<input type="submit" value="Log Out" /></label>
             </form>
           {% else %}
             <a href="login">login</a> | <a href="signup">signup</a>
           {% endif %}
         </div>
-        <a href="/" class="nav home">home</a>
-        <a href="blog" class="nav blog">all blogs</a>
-        <a href="newpost" class="nav new-post">add a blog</a><br/>
-
-        <div name="title">
-        {% block title %}
-        {% endblock %}
+        <div id="nav">
+          <a href="/" class="nav home">home</a>
+          <a href="blog" class="nav blog">all blogs</a>
+          <a href="newpost" class="nav new-post">add a blog</a><br/>
         </div>
+        
+        <hr>
 
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for message in messages %}
-            <p class=flashes>{{ message }}</p>
+            <ul class="flashes">
+              {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
             {% endfor %}
           {% endif %}
         {% endwith %}
 
+        <div id="post-title">
+        {% block title %}
+        {% endblock %}
         <hr>
+        </div>
 
+        
+        <div id="content">
         {% block content %}
         {% endblock %}
+        </div>
 
     </body>
 </html>

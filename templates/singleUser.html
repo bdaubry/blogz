@@ -13,7 +13,8 @@
     {% for post in posts %}
         <a href="?id={{ post.id }}">{{ post.title }}</a>&nbsp;
         <p class="post mainpage content">{{ post.body }}</p>
-        <h6>posted by <a href='?userid={{ post.owner_id }}'>{{ post.owner.username }}</a> on {{ post.date }}</h6>
+
+        <footer>posted by <a href="?userid={{ post.owner_id }}">{{ post.owner.username }}</a> on {{ post.date }}</footer>
         <hr/>
     {% endfor %}
 {% endif %}

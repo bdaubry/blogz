@@ -1,12 +1,32 @@
 {% extends "base.html" %}
-{% block content %}
 
-<h2>register new account</h2>
+{% block title %}
+    <h1 class="title">register new account</h1>
+{% endblock %}
+
+{% block content %}
 <form action="/signup" method="post">
-  <p><label>username <input type="text" name="username"/></label></p>
+<table id="signup" class="form signup">
+  <tr>
+    <td>username</td>
+    <td><input type="text" name="username"/></td>
+  </tr>
+  <tr>
+    <td>new password</td>
+    <td><input type="password" name="password"/></td>
+  </tr>
+  <tr>
+    <td>verify password</td>
+    <td><input type="password" name="verify"/></td>
+  </tr>
+  <tr>
+    <td class="submit" colspan="2"><input type="submit" value="signup"/></td>
+  </tr>
+</table>
+  <!--<p><label>username <input type="text" name="username"/></label></p>
   <p><label>new password <input type="password" name="password"/></label></p>
   <p><label>verify password <input type="password" name="verify"/></label></p>
-  <p><input type="submit" value="Register"/></p>
+  <p><input type="submit" value="Register"/></p>-->
 </form>
 
 {% endblock %}
