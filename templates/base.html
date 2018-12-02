@@ -9,6 +9,16 @@
         </style>
     </head>
     <body>
+          <div style='float: right'>
+          {% if 'user' in session %}
+            {{ session['user'] }}
+            <form action="/logout" method="post" id='logout'>
+              <input type="submit" value="Log Out" />
+            </form>
+          {% else %}
+            <a href="login">login</a> | <a href="register">register</a>
+          {% endif %}
+        </div>
         
         <a href="/blog" class="nav blog">Main Blog Page</a>
         <a href="/newpost" class="nav new-post">Add a Blog Entry</a><br/>
